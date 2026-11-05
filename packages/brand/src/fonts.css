@@ -1,0 +1,9 @@
+/*
+ * Self-hosted fonts via Fontsource (bundled into the site, no third-party
+ * requests). Fontsource declares font-display: swap and ships latin and
+ * latin-ext subsets, which cover English, German, French, and Spanish.
+ */
+@import "@fontsource/bagel-fat-one/400.css";
+@import "@fontsource/atkinson-hyperlegible/400.css";
+@import "@fontsource/atkinson-hyperlegible/700.css";
+@import "@fontsource/atkinson-hyperlegible/400-italic.css";

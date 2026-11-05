@@ -1,0 +1,30 @@
+/* Brand tokens (PRD section 11). Keep in sync with tokens.ts. */
+:root {
+  --butter: #ffcf3f;
+  --burnt: #2e1a12;
+  --crust: #b8662a;
+  --plate: #2346ff;
+  --jam: #f0383e;
+  --white: #ffffff;
+
+  --font-display: "Bagel Fat One", system-ui, sans-serif;
+  --font-body: "Atkinson Hyperlegible", system-ui, sans-serif;
+
+  /* Mobile type scale, growing to the upper bound on wider screens. */
+  --text-score: clamp(96px, 30vw, 128px);
+  --text-page: clamp(40px, 12vw, 56px);
+  --text-section: clamp(28px, 8vw, 32px);
+  --text-body: clamp(17px, 4.6vw, 18px);
+  --text-small: 14px;
+
+  /* Deliberately varied radii: slabs, pills, and sharp scoreboard edges. */
+  --radius-slab: 28px;
+  --radius-pill: 999px;
+  --radius-tight: 6px;
+
+  --outline: 4px solid var(--burnt);
+  --focus-ring: 0 0 0 4px var(--white), 0 0 0 8px var(--plate);
+
+  --ease-snap: cubic-bezier(0.2, 0.9, 0.3, 1.2);
+  --duration-ui: 160ms;
+}
