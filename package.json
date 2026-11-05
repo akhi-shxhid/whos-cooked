@@ -1,0 +1,23 @@
+{
+  "name": "whos-cooked",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.34.9",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "pnpm --parallel --filter @whoscooked/web --filter @whoscooked/api dev",
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm --filter @whoscooked/i18n build && vitest run",
+    "test:watch": "vitest",
+    "e2e": "pnpm --filter @whoscooked/web e2e",
+    "check": "pnpm typecheck && pnpm test"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "typescript": "^6.0.3",
+    "vitest": "^5.1.0"
+  }
+}

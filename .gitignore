@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.astro/
+.wrangler/
+.dev.vars
+.dev.vars.*
+.env
+.env.*
+!.env.example
+coverage/
+test-results/
+playwright-report/
+out/
+*.log
+.DS_Store
+packages/i18n/src/paraglide/
