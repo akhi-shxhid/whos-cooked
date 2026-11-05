@@ -1,0 +1,20 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "whoscooked-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-11-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+  "hyperdrive": [
+    {
+      "binding": "HYPERDRIVE",
+      // TODO(M0-owner): replace with the id from
+      //   wrangler hyperdrive create whoscooked-db --connection-string="<direct Neon URL>"
+      // Use a dedicated Neon role for Hyperdrive and a direct (non-pooled) URL.
+      "id": "00000000000000000000000000000000",
+      // Local dev talks straight to Postgres. Override per machine with the env var
+      // CLOUDFLARE_HYPERDRIVE_LOCAL_CONNECTION_STRING_HYPERDRIVE (e.g. a Neon dev branch).
+      "localConnectionString": "postgres://postgres:postgres@localhost:5432/whoscooked"
+    }
+  ]
+}
