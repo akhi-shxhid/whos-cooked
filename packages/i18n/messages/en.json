@@ -1,0 +1,10 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "app_name": "Who's Cooked?",
+  "pitch": "Find out how cooked your brain is, then prove someone else is worse.",
+  "disclaimer": "Who's Cooked? is a game for fun. It isn't a medical, psychological, or relationship test.",
+  "start_game": "Start game",
+  "challenge_someone": "Challenge someone",
+  "save_result": "Save result",
+  "play_again": "Play again"
+}
