@@ -1,0 +1,97 @@
+---
+import { ToastMascot } from "@whoscooked/brand";
+import Base from "../layouts/Base.astro";
+---
+
+<Base
+  title="Who's Cooked?"
+  description="A 90-second game. Find out how cooked your brain is, then prove someone else is worse."
+>
+  <main class="stage">
+    <div class="toast">
+      <ToastMascot
+        doneness={38}
+        mood="smug"
+        lookX={-0.4}
+        lookY={-0.3}
+        size={220}
+        title="A slice of toast, looking smug"
+      />
+    </div>
+    <h1>Who's Cooked?</h1>
+    <p class="pitch">Find out how cooked your brain is, then prove someone else is worse.</p>
+    <p class="status">The rounds are still in the toaster. Check back soon.</p>
+  </main>
+  <footer>
+    <p>Who's Cooked? is a game for fun. It isn't a medical, psychological, or relationship test.</p>
+  </footer>
+</Base>
+
+<style>
+  .stage {
+    min-height: calc(100dvh - 88px);
+    max-width: 440px;
+    margin: 0 auto;
+    padding: 48px 20px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+  }
+
+  .toast {
+    margin-bottom: 8px;
+  }
+
+  .pitch {
+    margin: 0;
+    max-width: 30ch;
+  }
+
+  .status {
+    margin: auto 0 0;
+    padding: 14px 22px;
+    background: var(--burnt);
+    color: var(--white);
+    font-weight: 700;
+    border-radius: var(--radius-tight);
+    transform: rotate(-1.5deg);
+  }
+
+  footer {
+    padding: 16px 20px 24px;
+    text-align: center;
+    font-size: var(--text-small);
+  }
+
+  footer p {
+    margin: 0 auto;
+    max-width: 40ch;
+  }
+
+  /* Desktop: a portrait stage standing on a counter-top slab. */
+  @media (min-width: 900px) {
+    :global(body) {
+      background:
+        linear-gradient(var(--burnt), var(--burnt)) bottom 18vh left 0 / 100% 8px no-repeat,
+        linear-gradient(var(--crust), var(--crust)) bottom / 100% 18vh no-repeat,
+        var(--butter);
+    }
+
+    .stage {
+      background: var(--butter);
+      border: var(--outline);
+      border-radius: var(--radius-slab);
+      margin-top: 4vh;
+      min-height: 0;
+      height: min(820px, 80vh);
+    }
+
+    footer {
+      position: fixed;
+      inset: auto 0 calc(9vh - 36px);
+      color: var(--white);
+    }
+  }
+</style>

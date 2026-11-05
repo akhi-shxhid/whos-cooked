@@ -1,0 +1,8 @@
+{
+  "extends": ["astro/tsconfigs/strictest", "../../tsconfig.base.json"],
+  "compilerOptions": {
+    "types": []
+  },
+  "include": [".astro/types.d.ts", "src", "e2e", "playwright.config.ts"],
+  "exclude": ["dist"]
+}
