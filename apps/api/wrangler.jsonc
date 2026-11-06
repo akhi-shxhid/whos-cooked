@@ -8,10 +8,9 @@
   "hyperdrive": [
     {
       "binding": "HYPERDRIVE",
-      // TODO(M0-owner): replace with the id from
-      //   wrangler hyperdrive create whoscooked-db --connection-string="<direct Neon URL>"
-      // Use a dedicated Neon role for Hyperdrive and a direct (non-pooled) URL.
-      "id": "00000000000000000000000000000000",
+      // Hyperdrive config "whoscooked-db": Neon project whos-cooked (still-recipe-70179481),
+      // branch main, role `hyperdrive` (data access only), direct non-pooled URL.
+      "id": "3d8c73a855f74c7bb0e81d9a9088a499",
       // Local dev talks straight to Postgres. Override per machine with the env var
       // CLOUDFLARE_HYPERDRIVE_LOCAL_CONNECTION_STRING_HYPERDRIVE (e.g. a Neon dev branch).
       "localConnectionString": "postgres://postgres:postgres@localhost:5432/whoscooked"
