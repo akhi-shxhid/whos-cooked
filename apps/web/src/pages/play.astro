@@ -1,0 +1,28 @@
+---
+import Game from "../game/Game.tsx";
+import Base from "../layouts/Base.astro";
+---
+
+<Base title="Play | Who's Cooked?" description="Four quick rounds. Find out how cooked you are." scenery>
+  <Game client:only="react">
+    <main class="fallback" slot="fallback">
+      <p>Heating up the toaster.</p>
+    </main>
+  </Game>
+  <noscript>
+    <main class="fallback">
+      <p>Who's Cooked? needs JavaScript to run the game. Turn it on, then reload this page.</p>
+    </main>
+  </noscript>
+</Base>
+
+<style>
+  .fallback {
+    min-height: 100dvh;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    text-align: center;
+    font-weight: 700;
+  }
+</style>

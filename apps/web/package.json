@@ -21,7 +21,10 @@
   },
   "dependencies": {
     "@astrojs/react": "7.1.0",
+    "@whoscooked/analytics": "workspace:*",
     "@whoscooked/brand": "workspace:*",
+    "@whoscooked/game-core": "workspace:*",
+    "@whoscooked/game-renderer": "workspace:*",
     "astro": "7.4.1",
     "motion": "^14.9.1",
     "react": "^19.3.1",

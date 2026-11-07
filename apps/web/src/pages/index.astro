@@ -6,6 +6,7 @@ import Base from "../layouts/Base.astro";
 <Base
   title="Who's Cooked?"
   description="A 90-second game. Find out how cooked your brain is, then prove someone else is worse."
+  scenery
 >
   <main class="stage">
     <div class="toast">
@@ -20,7 +21,8 @@ import Base from "../layouts/Base.astro";
     </div>
     <h1>Who's Cooked?</h1>
     <p class="pitch">Find out how cooked your brain is, then prove someone else is worse.</p>
-    <p class="status">The rounds are still in the toaster. Check back soon.</p>
+    <p class="facts">Four rounds. About 90 seconds. No sign-up.</p>
+    <a class="button button--primary start" href="/play">Start game</a>
   </main>
   <footer>
     <p>Who's Cooked? is a game for fun. It isn't a medical, psychological, or relationship test.</p>
@@ -32,7 +34,7 @@ import Base from "../layouts/Base.astro";
     min-height: calc(100dvh - 88px);
     max-width: 440px;
     margin: 0 auto;
-    padding: 48px 20px 32px;
+    padding: 48px 20px 24px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -49,14 +51,14 @@ import Base from "../layouts/Base.astro";
     max-width: 30ch;
   }
 
-  .status {
-    margin: auto 0 0;
-    padding: 14px 22px;
-    background: var(--burnt);
-    color: var(--white);
+  .facts {
+    margin: 0;
     font-weight: 700;
-    border-radius: var(--radius-tight);
-    transform: rotate(-1.5deg);
+  }
+
+  /* Primary action in the thumb zone. */
+  .start {
+    margin-top: auto;
   }
 
   footer {
@@ -70,22 +72,14 @@ import Base from "../layouts/Base.astro";
     max-width: 40ch;
   }
 
-  /* Desktop: a portrait stage standing on a counter-top slab. */
   @media (min-width: 900px) {
-    :global(body) {
-      background:
-        linear-gradient(var(--burnt), var(--burnt)) bottom 18vh left 0 / 100% 8px no-repeat,
-        linear-gradient(var(--crust), var(--crust)) bottom / 100% 18vh no-repeat,
-        var(--butter);
-    }
-
     .stage {
       background: var(--butter);
       border: var(--outline);
       border-radius: var(--radius-slab);
       margin-top: 4vh;
       min-height: 0;
-      height: min(820px, 80vh);
+      height: min(820px, 76vh);
     }
 
     footer {

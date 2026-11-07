@@ -20,3 +20,12 @@ burnt and white, whichever has more contrast with the crumb.
 ## Fonts
 Self-hosted through Fontsource (`@fontsource/bagel-fat-one`, `@fontsource/atkinson-hyperlegible`),
 which uses `font-display: swap` and ships latin and latin-ext subsets for EN, DE, FR, ES.
+
+## Order Up ingredients
+Butter, jam, egg, cheese, honey, and mushroom. Each is drawn only in brand colors and is told
+apart by shape and its text label, never by color alone. Avocado and tomato were dropped
+because they would need a green and a second red.
+
+## Game stage
+Rounds draw on a white plate with a burnt outline, so butter pats (butter on white) keep a
+burnt outline for shape contrast. Mistakes show text ("Too soon", "Crumb!") as well as jam color.

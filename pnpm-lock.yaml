@@ -48,9 +48,18 @@ importers:
       '@astrojs/react':
         specifier: 7.1.0
         version: 7.1.0(@types/node@26.6.6)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(esbuild@0.28.2)(jiti@2.7.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(terser@5.51.2)(tsx@4.23.15)(yaml@2.9.1)
+      '@whoscooked/analytics':
+        specifier: workspace:*
+        version: link:../../packages/analytics
       '@whoscooked/brand':
         specifier: workspace:*
         version: link:../../packages/brand
+      '@whoscooked/game-core':
+        specifier: workspace:*
+        version: link:../../packages/game-core
+      '@whoscooked/game-renderer':
+        specifier: workspace:*
+        version: link:../../packages/game-renderer
       astro:
         specifier: 7.4.1
         version: 7.4.1(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.15)(yaml@2.9.1)
@@ -135,6 +144,9 @@ importers:
 
   packages/game-renderer:
     dependencies:
+      '@whoscooked/brand':
+        specifier: workspace:*
+        version: link:../brand
       '@whoscooked/game-core':
         specifier: workspace:*
         version: link:../game-core
@@ -5737,7 +5749,7 @@ snapshots:
       react-refresh: 0.18.0
       remotion: 4.0.541(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       style-loader: 4.0.0(webpack@5.105.0(esbuild@0.28.1)(postcss@8.5.32))
-      webpack: 5.105.0(esbuild@0.28.2)(postcss@8.5.32)
+      webpack: 5.105.0(esbuild@0.28.1)(postcss@8.5.32)
     transitivePeerDependencies:
       - '@minify-html/node'
       - '@module-federation/runtime-tools'
@@ -6883,7 +6895,7 @@ snapshots:
       semver: 7.8.6
     optionalDependencies:
       '@rspack/core': 2.3.0
-      webpack: 5.105.0(esbuild@0.28.2)(postcss@8.5.32)
+      webpack: 5.105.0(esbuild@0.28.1)(postcss@8.5.32)
 
   css-select@6.0.0:
     dependencies:
@@ -7888,14 +7900,14 @@ snapshots:
 
   scheduler@0.28.0: {}
 
-  schema-utils@4.8.2(webpack@5.105.0(esbuild@0.28.1)(postcss@8.5.32)):
+  schema-utils@4.8.2(webpack@5.105.0(esbuild@0.28.2)(postcss@8.5.32)):
     dependencies:
       '@types/json-schema': 7.0.15
       ajv: 8.20.0
       ajv-formats: 3.0.1(ajv@8.20.0)
       ajv-keywords: 5.1.0(ajv@8.20.0)
     optionalDependencies:
-      webpack: 5.105.0(esbuild@0.28.2)(postcss@8.5.32)
+      webpack: 5.105.0(esbuild@0.28.1)(postcss@8.5.32)
 
   semver@6.3.2: {}
 
@@ -8014,7 +8026,7 @@ snapshots:
 
   style-loader@4.0.0(webpack@5.105.0(esbuild@0.28.1)(postcss@8.5.32)):
     dependencies:
-      webpack: 5.105.0(esbuild@0.28.2)(postcss@8.5.32)
+      webpack: 5.105.0(esbuild@0.28.1)(postcss@8.5.32)
 
   supports-color@10.2.2: {}
 
@@ -8036,15 +8048,15 @@ snapshots:
 
   tapable@2.3.3: {}
 
-  terser-webpack-plugin@5.6.1(esbuild@0.28.2)(postcss@8.5.32)(webpack@5.105.0(esbuild@0.28.1)(postcss@8.5.32)):
+  terser-webpack-plugin@5.6.1(esbuild@0.28.1)(postcss@8.5.32)(webpack@5.105.0(esbuild@0.28.2)(postcss@8.5.32)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       jest-worker: 27.5.1
-      schema-utils: 4.8.2(webpack@5.105.0(esbuild@0.28.1)(postcss@8.5.32))
+      schema-utils: 4.8.2(webpack@5.105.0(esbuild@0.28.2)(postcss@8.5.32))
       terser: 5.51.2
-      webpack: 5.105.0(esbuild@0.28.2)(postcss@8.5.32)
+      webpack: 5.105.0(esbuild@0.28.1)(postcss@8.5.32)
     optionalDependencies:
-      esbuild: 0.28.2
+      esbuild: 0.28.1
       postcss: 8.5.32
 
   terser@5.51.2:
@@ -8381,7 +8393,7 @@ snapshots:
 
   webpack-virtual-modules@0.6.2: {}
 
-  webpack@5.105.0(esbuild@0.28.2)(postcss@8.5.32):
+  webpack@5.105.0(esbuild@0.28.1)(postcss@8.5.32):
     dependencies:
       '@types/eslint-scope': 3.7.7
       '@types/estree': 1.0.10
@@ -8403,9 +8415,9 @@ snapshots:
       loader-runner: 4.3.2
       mime-types: 2.1.35
       neo-async: 2.6.2
-      schema-utils: 4.8.2(webpack@5.105.0(esbuild@0.28.1)(postcss@8.5.32))
+      schema-utils: 4.8.2(webpack@5.105.0(esbuild@0.28.2)(postcss@8.5.32))
       tapable: 2.3.3
-      terser-webpack-plugin: 5.6.1(esbuild@0.28.2)(postcss@8.5.32)(webpack@5.105.0(esbuild@0.28.1)(postcss@8.5.32))
+      terser-webpack-plugin: 5.6.1(esbuild@0.28.1)(postcss@8.5.32)(webpack@5.105.0(esbuild@0.28.2)(postcss@8.5.32))
       watchpack: 2.6.3
       webpack-sources: 3.7.0
     transitivePeerDependencies:

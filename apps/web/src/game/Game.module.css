@@ -1,0 +1,133 @@
+.shell {
+  height: 100dvh;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: max(12px, env(safe-area-inset-top)) 16px max(12px, env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 44px;
+}
+
+.roundLabel {
+  font-family: var(--font-display);
+  font-size: 24px;
+}
+
+.soundToggle {
+  font: inherit;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--burnt);
+  background: transparent;
+  border: 3px solid var(--burnt);
+  border-radius: var(--radius-pill);
+  padding: 8px 16px;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.soundToggle[aria-pressed="false"] {
+  background: var(--burnt);
+  color: var(--white);
+}
+
+.stageWrap {
+  position: relative;
+  flex: 1;
+  min-height: 320px;
+  background: var(--white);
+  border: var(--outline);
+  border-radius: var(--radius-slab);
+  overflow: hidden;
+}
+
+.stage {
+  position: absolute;
+  inset: 0;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+  text-align: center;
+  background: var(--butter);
+}
+
+.overlay p {
+  margin: 0;
+  max-width: 30ch;
+}
+
+.below {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 80px;
+}
+
+.instruction {
+  margin: 0;
+  font-weight: 700;
+}
+
+.caption {
+  margin: 2px 0 0;
+  font-size: var(--text-small);
+  min-height: 1.4em;
+}
+
+.gate {
+  min-height: 100dvh;
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 48px 20px max(24px, env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+}
+
+.gate p {
+  margin: 0;
+  max-width: 32ch;
+}
+
+.gateTitle {
+  font-size: var(--text-section);
+}
+
+/* Primary action sits in the thumb zone. */
+.actions {
+  margin-top: auto;
+  width: 100%;
+  display: grid;
+  gap: 10px;
+}
+
+/* Desktop: the game is a portrait card standing on the counter scenery. */
+@media (min-width: 900px) {
+  .shell,
+  .gate {
+    height: min(860px, 78vh);
+    min-height: 0;
+    margin-top: 3vh;
+    padding: 20px;
+    background: var(--butter);
+    border: var(--outline);
+    border-radius: var(--radius-slab);
+  }
+}
