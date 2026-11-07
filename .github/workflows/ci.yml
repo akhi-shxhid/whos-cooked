@@ -21,6 +21,39 @@ jobs:
       - run: pnpm build
       - run: pnpm --filter @whoscooked/web exec playwright install --with-deps chromium
       - run: pnpm e2e
-  # TODO(M0-owner): add preview + production deploy jobs once CLOUDFLARE_API_TOKEN,
-  # CLOUDFLARE_ACCOUNT_ID and the Neon DATABASE_URL secrets exist in GitHub.
-  # Migrations run here via `pnpm --filter @whoscooked/db db:migrate`, never at runtime.
+
+  # Pull requests get preview versions (wrangler versions upload); main deploys to production.
+  # Every step is skipped until the CLOUDFLARE_API_TOKEN secret exists in GitHub.
+  deploy:
+    needs: check
+    runs-on: ubuntu-latest
+    concurrency: deploy-${{ github.ref }}
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: fb5ace7dd8ddd156496753688fbe5688
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+    steps:
+      - if: env.CLOUDFLARE_API_TOKEN == ''
+        run: echo "::notice::Deploy skipped. Add the CLOUDFLARE_API_TOKEN secret to enable it."
+      - if: env.CLOUDFLARE_API_TOKEN != ''
+        uses: actions/checkout@v4
+      - if: env.CLOUDFLARE_API_TOKEN != ''
+        uses: pnpm/action-setup@v4
+      - if: env.CLOUDFLARE_API_TOKEN != ''
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - if: env.CLOUDFLARE_API_TOKEN != ''
+        run: pnpm install --frozen-lockfile && pnpm build
+      # Migrations run here through Drizzle Kit, never at runtime (PRD section 15).
+      - if: env.CLOUDFLARE_API_TOKEN != '' && env.DATABASE_URL != '' && github.ref == 'refs/heads/main' && hashFiles('packages/db/migrations/meta/_journal.json') != ''
+        run: pnpm --filter @whoscooked/db db:migrate
+      - if: env.CLOUDFLARE_API_TOKEN != '' && github.ref == 'refs/heads/main'
+        run: |
+          pnpm --filter @whoscooked/api exec wrangler deploy
+          pnpm --filter @whoscooked/web exec wrangler deploy
+      - if: env.CLOUDFLARE_API_TOKEN != '' && github.event_name == 'pull_request'
+        run: |
+          pnpm --filter @whoscooked/api exec wrangler versions upload
+          pnpm --filter @whoscooked/web exec wrangler versions upload

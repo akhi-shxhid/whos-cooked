@@ -17,7 +17,7 @@ Health checks: `/api/v1/health` and `/api/v1/health/db` on the API Worker.
 
 ## Local development
 
-`apps/api/.env` (git-ignored) sets `CLOUDFLARE_HYPERDRIVE_LOCAL_CONNECTION_STRING_HYPERDRIVE` to the
+`apps/api/.env.local-db` (git-ignored, loaded by `pnpm dev` through Node, not exposed to the Worker) sets `CLOUDFLARE_HYPERDRIVE_LOCAL_CONNECTION_STRING_HYPERDRIVE` to the
 Neon `dev` branch. Recreate it with:
 
 ```bash
