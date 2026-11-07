@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit -p ."
   },
   "dependencies": {
+    "@whoscooked/brand": "workspace:*",
     "@whoscooked/game-core": "workspace:*",
     "pixi.js": "^8.22.0"
   }
