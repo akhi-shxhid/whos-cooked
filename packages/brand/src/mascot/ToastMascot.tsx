@@ -22,7 +22,7 @@ export interface ToastMascotProps {
   size?: number;
   /** Accessible name. Pass `null` when the toast is purely decorative. */
   title?: string | null;
-  className?: string;
+  className?: string | undefined;
 }
 
 const clamp = (v: number, lo: number, hi: number) =>

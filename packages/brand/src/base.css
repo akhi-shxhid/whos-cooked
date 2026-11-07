@@ -53,3 +53,78 @@ h2 {
     transition-duration: 0.01ms !important;
   }
 }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Buttons: one loud primary per screen, quieter secondaries. */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  padding: 14px 24px;
+  font: inherit;
+  font-weight: 700;
+  font-size: 19px;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: var(--radius-pill);
+  transition: transform var(--duration-ui) var(--ease-snap);
+}
+
+.button:active {
+  transform: scale(0.97);
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.button--primary {
+  width: 100%;
+  background: var(--plate);
+  color: var(--white);
+  border: 0;
+  box-shadow: 0 6px 0 var(--burnt);
+}
+
+.button--primary:active {
+  box-shadow: 0 2px 0 var(--burnt);
+  transform: translateY(4px);
+}
+
+.button--secondary {
+  background: transparent;
+  color: var(--burnt);
+  border: 3px solid var(--burnt);
+}
+
+.button--quiet {
+  background: transparent;
+  color: var(--burnt);
+  border: 0;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Desktop scenery: a portrait stage standing on a counter-top slab. */
+@media (min-width: 900px) {
+  body.scenery {
+    background:
+      linear-gradient(var(--burnt), var(--burnt)) bottom 18vh left 0 / 100% 8px no-repeat,
+      linear-gradient(var(--crust), var(--crust)) bottom / 100% 18vh no-repeat,
+      var(--butter);
+    background-attachment: fixed;
+  }
+}
