@@ -1,26 +1,45 @@
 import { Application, Container, Graphics, Texture } from "pixi.js";
-import { colors } from "@whoscooked/brand";
+import { palette } from "@whoscooked/brand";
 
 export const hex = (c: string) => parseInt(c.slice(1), 16);
 
+/** Stage palette (brand tokens v2). The stage itself is a light "paper" surface. */
 export const C = {
-  butter: hex(colors.butter),
-  burnt: hex(colors.burnt),
-  crust: hex(colors.crust),
-  plate: hex(colors.plate),
-  jam: hex(colors.jam),
-  white: hex(colors.white),
+  bg: hex(palette.bg),
+  panel: hex(palette.panel),
+  panel2: hex(palette.panel2),
+  paper: hex(palette.paper),
+  line: hex(palette.line),
+  muted: hex(palette.muted),
+  heat: hex(palette.heat),
+  acid: hex(palette.acid),
+  ice: hex(palette.ice),
+  danger: hex(palette.danger),
+  gold: hex(palette.gold),
+  white: 0xffffff,
 } as const;
 
-export const FONT_DISPLAY = "Bagel Fat One";
+export const FONT_DISPLAY = "Bricolage Grotesque";
 export const FONT_BODY = "Atkinson Hyperlegible";
+export const FONT_EMOJI = '"Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif';
 
-export type ToastMoodKey = "neutral" | "happy" | "shocked" | "panic" | "focused";
+export type MoodKey = "neutral" | "happy" | "shocked" | "panic";
+
+/**
+ * Texture keys:
+ *   `char:<mood>`           the player's selected character
+ *   `toast:<doneness>:<mood>` toast slices for BURNT ONE!
+ */
+export type TexKey = `char:${MoodKey}` | `toast:${number}:${MoodKey}`;
 
 export interface StageOptions {
   reducedMotion: boolean;
-  /** SVG markup for each toast mood, rendered by the caller from ToastMascot. */
-  toastSvgs: Record<ToastMoodKey, string>;
+  /** SVG markup for a texture key, rendered by the caller from the pure brand components. */
+  svgFor(key: TexKey): string;
+  /** Textures needed in the first seconds. The stage waits for these. */
+  preload: readonly TexKey[];
+  /** Everything else, made in the background after the stage is ready. */
+  later?: readonly TexKey[];
 }
 
 export interface PointerHit {
@@ -37,14 +56,12 @@ export interface Stage {
   width: number;
   height: number;
   reducedMotion: boolean;
-  toast: Record<ToastMoodKey, Texture>;
-  /** Subscribe to pointerdown on the stage. Returns an unsubscribe function. */
+  /** A preloaded texture, or the closest preloaded one of the same kind. */
+  texture(key: TexKey): Texture;
   onPointer(cb: (hit: PointerHit) => void): () => void;
-  /** Subscribe to keydown (outside text inputs). Returns an unsubscribe function. */
   onKey(cb: (e: KeyboardEvent) => void): () => void;
   /** Runs `cb(nowMs)` every frame until the returned function is called. */
   onFrame(cb: (now: number) => void): () => void;
-  /** Remove everything drawn by the current round. */
   clear(): void;
   destroy(): void;
 }
@@ -62,7 +79,7 @@ export async function createStage(container: HTMLElement, opts: StageOptions): P
   const app = new Application();
   await app.init({
     resizeTo: container,
-    background: C.white,
+    background: C.paper,
     antialias: true,
     autoDensity: true,
     resolution: Math.min(window.devicePixelRatio || 1, 2),
@@ -73,11 +90,43 @@ export async function createStage(container: HTMLElement, opts: StageOptions): P
   app.canvas.setAttribute("aria-hidden", "true");
   container.appendChild(app.canvas);
 
-  const scale = Math.min(window.devicePixelRatio || 1, 2) * 1.5;
-  const entries = await Promise.all(
-    (Object.keys(opts.toastSvgs) as ToastMoodKey[]).map(async (k) => [k, await svgTexture(opts.toastSvgs[k], scale)] as const),
-  );
-  const toast = Object.fromEntries(entries) as Record<ToastMoodKey, Texture>;
+  const scale = Math.min(window.devicePixelRatio || 1, 2);
+  const textures = new Map<TexKey, Texture>();
+  let destroyed = false;
+  const make = async (key: TexKey) => {
+    if (textures.has(key)) return;
+    const t = await svgTexture(opts.svgFor(key), scale);
+    if (destroyed) t.destroy(true);
+    else textures.set(key, t);
+  };
+  await Promise.all(opts.preload.map(make));
+  void (async () => {
+    for (const key of opts.later ?? []) {
+      if (destroyed) return;
+      await make(key).catch(() => {});
+    }
+  })();
+
+  const texture = (key: TexKey): Texture => {
+    const hit = textures.get(key);
+    if (hit) return hit;
+    // Fallback while background textures are still being made.
+    const [kind, a, b] = key.split(":");
+    let best: Texture | undefined;
+    let bestGap = Infinity;
+    for (const [k, t] of textures) {
+      const [kk, ka, kb] = k.split(":");
+      if (kk !== kind) continue;
+      const gap = kind === "toast" ? Math.abs(Number(ka) - Number(a)) + (kb === b ? 0 : 500) : ka === a ? 0 : 1;
+      if (gap < bestGap) {
+        bestGap = gap;
+        best = t;
+      }
+    }
+    best ??= textures.values().next().value;
+    if (!best) throw new Error("No textures were preloaded.");
+    return best;
+  };
 
   const root = new Container();
   app.stage.addChild(root);
@@ -96,12 +145,12 @@ export async function createStage(container: HTMLElement, opts: StageOptions): P
   const onKeyDown = (e: KeyboardEvent) => {
     if (e.repeat) return;
     const target = e.target as HTMLElement | null;
-    if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.tagName === "BUTTON")) return;
+    if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.tagName === "BUTTON" || target.tagName === "SELECT")) return;
     for (const cb of keySubs) cb(e);
   };
   window.addEventListener("keydown", onKeyDown);
 
-  const stage: Stage = {
+  return {
     app,
     root,
     get width() {
@@ -111,7 +160,7 @@ export async function createStage(container: HTMLElement, opts: StageOptions): P
       return app.screen.height;
     },
     reducedMotion: opts.reducedMotion,
-    toast,
+    texture,
     onPointer(cb) {
       pointerSubs.add(cb);
       return () => pointerSubs.delete(cb);
@@ -129,18 +178,18 @@ export async function createStage(container: HTMLElement, opts: StageOptions): P
       for (const child of root.removeChildren()) child.destroy({ children: true });
     },
     destroy() {
+      destroyed = true;
       app.canvas.removeEventListener("pointerdown", onPointerDown);
       window.removeEventListener("keydown", onKeyDown);
       pointerSubs.clear();
       keySubs.clear();
-      for (const t of Object.values(toast)) t.destroy(true);
+      for (const t of textures.values()) t.destroy(true);
       app.destroy({ removeView: true }, { children: true });
     },
   };
-  return stage;
 }
 
-/** Thrown when a round is aborted (tab hidden, player left). */
+/** Thrown when a run is aborted (tab hidden, player left). */
 export class RoundAborted extends Error {
   constructor() {
     super("Round aborted");
@@ -148,7 +197,7 @@ export class RoundAborted extends Error {
   }
 }
 
-/** Feedback for the DOM layer: the toast's reaction plus a text cue (audio has text equivalents). */
+/** Feedback for the DOM layer: a reaction plus a text cue (every sound has a text equivalent). */
 export interface RoundFeedback {
   tone: "good" | "bad" | "neutral";
   caption: string;
@@ -157,45 +206,6 @@ export interface RoundFeedback {
 
 export type SoundName = "tick" | "pop" | "butter" | "burn" | "complete" | "reveal";
 
-export interface RoundHooks {
-  signal: AbortSignal;
-  onFeedback?(f: RoundFeedback): void;
-  /** Progress text such as "Trial 2 of 5". */
-  onProgress?(text: string): void;
-}
-
-/** Runs a round body with standard cleanup and abort handling. */
-export function runRound<T>(
-  stage: Stage,
-  hooks: RoundHooks,
-  body: (finish: (value: T) => void, cleanups: (() => void)[]) => void,
-): Promise<T> {
-  return new Promise<T>((resolve, reject) => {
-    const cleanups: (() => void)[] = [];
-    let done = false;
-    const end = () => {
-      done = true;
-      for (const fn of cleanups.splice(0)) fn();
-      hooks.signal.removeEventListener("abort", onAbort);
-      stage.clear();
-    };
-    const onAbort = () => {
-      if (done) return;
-      end();
-      reject(new RoundAborted());
-    };
-    if (hooks.signal.aborted) return reject(new RoundAborted());
-    hooks.signal.addEventListener("abort", onAbort);
-    stage.clear();
-    body((value) => {
-      if (done) return;
-      end();
-      resolve(value);
-    }, cleanups);
-  });
-}
-
-/** Ease helpers for frame-based tweens. */
 export const ease = {
   outBack: (t: number) => {
     const c1 = 1.70158;
@@ -208,7 +218,13 @@ export const ease = {
 
 export const clamp01 = (t: number) => Math.min(1, Math.max(0, t));
 
-/** Plain helper so rounds can make a rounded rectangle quickly. */
-export function slab(w: number, h: number, r: number, fill: number, stroke = C.burnt, strokeWidth = 4): Graphics {
-  return new Graphics().roundRect(0, 0, w, h, r).fill(fill).stroke({ width: strokeWidth, color: stroke });
+/** Rounded joins and caps everywhere, plus a low miter limit (see shapes.ts for the stray-line bug). */
+export const ink = (width: number, color: number = C.line) => ({ width, color, join: "round" as const, cap: "round" as const, miterLimit: 2 });
+
+/** Sticker slab: fill, hard border, optional offset shadow. */
+export function slab(w: number, h: number, r: number, fill: number, opts: { border?: number; shadow?: number } = {}): Graphics {
+  const g = new Graphics();
+  if (opts.shadow !== undefined) g.roundRect(5, 5, w, h, r).fill(opts.shadow);
+  g.roundRect(0, 0, w, h, r).fill(fill).stroke(ink(opts.border ?? 4));
+  return g;
 }
