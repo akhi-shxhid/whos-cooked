@@ -1,11 +1,15 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "whoscooked-web",
+  "main": "worker/index.ts",
   "compatibility_date": "2026-11-01",
   "assets": {
     "directory": "./dist",
-    "not_found_handling": "404-page"
-  }
-  // TODO(M0-owner): once the domain is on Cloudflare, add the custom domain here and
-  // route `<domain>/api/*` to the whoscooked-api Worker (see docs/deploy.md).
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    // Only API calls run the Worker; everything else is served straight from the edge cache.
+    "run_worker_first": ["/api/*"]
+  },
+  "services": [{ "binding": "API", "service": "whoscooked-api" }]
+  // TODO(M0-owner): once the domain is on Cloudflare, add it here as a custom domain.
 }

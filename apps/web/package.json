@@ -25,6 +25,7 @@
     "@whoscooked/brand": "workspace:*",
     "@whoscooked/game-core": "workspace:*",
     "@whoscooked/game-renderer": "workspace:*",
+    "@whoscooked/payments": "workspace:*",
     "astro": "7.4.1",
     "motion": "^14.9.1",
     "react": "^19.3.1",

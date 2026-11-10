@@ -26,6 +26,9 @@ importers:
       '@whoscooked/db':
         specifier: workspace:*
         version: link:../../packages/db
+      '@whoscooked/payments':
+        specifier: workspace:*
+        version: link:../../packages/payments
       better-auth:
         specifier: ^1.7.17
         version: 1.7.17(@opentelemetry/api@1.10.0)(drizzle-kit@0.31.11)(drizzle-orm@0.45.4(@opentelemetry/api@1.10.0)(@types/pg@8.23.1)(kysely@0.29.8)(pg@8.23.1))(pg@8.23.1)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(vitest@5.1.0(@opentelemetry/api@1.10.0)(@types/node@26.6.6)(vite@8.3.6(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.15)(yaml@2.9.1)))
@@ -60,6 +63,9 @@ importers:
       '@whoscooked/game-renderer':
         specifier: workspace:*
         version: link:../../packages/game-renderer
+      '@whoscooked/payments':
+        specifier: workspace:*
+        version: link:../../packages/payments
       astro:
         specifier: 7.4.1
         version: 7.4.1(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.15)(yaml@2.9.1)
@@ -104,6 +110,9 @@ importers:
         specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/bagel-fat-one':
+        specifier: ^5.3.0
+        version: 5.3.0
+      '@fontsource/bricolage-grotesque':
         specifier: ^5.3.0
         version: 5.3.0
     devDependencies:
@@ -160,11 +169,7 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0(typescript@7.0.2)(vite@8.3.6(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.15)(yaml@2.9.1))
 
-  packages/payments:
-    dependencies:
-      dodopayments:
-        specifier: ^2.61.1
-        version: 2.61.1
+  packages/payments: {}
 
   packages/video:
     dependencies:
@@ -1296,6 +1301,9 @@ packages:
 
   '@fontsource/bagel-fat-one@5.3.0':
     resolution: {integrity: sha512-rT3HoY0O7+rfK8WA4ddkIc+6ushm/yjbdoc5l7jo58Si6S2XPUae8whLdLqFcrcXF9DGLaxin9FNAUaAKX5N+A==}
+
+  '@fontsource/bricolage-grotesque@5.3.0':
+    resolution: {integrity: sha512-MdOVb/5in11IfN/IQJOExMuu6AroCIQbirl0yX7NUvKk+h0HYIKfGaVAXRS/gCPil4aFxWhjZnOw28tUwv7tFw==}
 
   '@img/colour@1.1.0':
     resolution: {integrity: sha512-Td76q7j57o/tLVdgS746cYARfSyxk8iEfRxewL9h4OMzYhbW4TAcppl0mT4eyqXddh6L/jwoM75mo7ixa/pCeQ==}
@@ -2877,10 +2885,6 @@ packages:
   diff@9.0.0:
     resolution: {integrity: sha512-svtcdpS8CgJyqAjEQIXdb3OjhFVVYjzGAPO8WGCmRbrml64SPw/jJD4GoE98aR7r25A0XcgrK3F02yw9R/vhQw==}
     engines: {node: '>=0.3.1'}
-
-  dodopayments@2.61.1:
-    resolution: {integrity: sha512-MgfCcXfx+v8iAOcKTwMJEcMQ19EFDHjewv8wdqRFYZjPa5EnrvWUOCDh4+rtGEBcGRB61UtBs8X0ezdHcpBdvg==}
-    hasBin: true
 
   dom-serializer@2.0.0:
     resolution: {integrity: sha512-wIkAryiqt/nV5EQKqQpo3SToSOV9J0DnbJqwK7Wv/Trc92zIAYZ4FlMu+JPFW1DfGFt81ZTCGgDEabffXeLyJg==}
@@ -5420,6 +5424,8 @@ snapshots:
 
   '@fontsource/bagel-fat-one@5.3.0': {}
 
+  '@fontsource/bricolage-grotesque@5.3.0': {}
+
   '@img/colour@1.1.0': {}
 
   '@img/sharp-darwin-arm64@0.35.5':
@@ -6946,10 +6952,6 @@ snapshots:
       dequal: 2.0.3
 
   diff@9.0.0: {}
-
-  dodopayments@2.61.1:
-    dependencies:
-      standardwebhooks: 1.1.1
 
   dom-serializer@2.0.0:
     dependencies:

@@ -1,70 +1,118 @@
 ---
-import { ToastMascot } from "@whoscooked/brand";
+import { Character } from "@whoscooked/brand";
 import Base from "../layouts/Base.astro";
 ---
 
-<Base
-  title="Who's Cooked?"
-  description="A 90-second game. Find out how cooked your brain is, then prove someone else is worse."
-  scenery
->
-  <main class="stage">
-    <div class="toast">
-      <ToastMascot
-        doneness={38}
-        mood="smug"
-        lookX={-0.4}
-        lookY={-0.3}
-        size={220}
-        title="A slice of toast, looking smug"
-      />
+<Base title="Who's Cooked?" description="8 microgames. 3 lives. Find out if you're locked in or cooked, then duel your friends.">
+  <main class="page">
+    <p class="kicker">a daily focus challenge</p>
+    <h1>WHO'S<br /> COOKED?</h1>
+    <p class="pitch">8 microgames. 3 lives. Are you locked in, or are you cooked?</p>
+
+    <div class="crew" aria-hidden="true">
+      <span class="c1"><Character who="doomscroll" mood="panic" size={86} title={null} /></span>
+      <span class="c2"><Character who="toasty" mood="smug" size={112} title={null} /></span>
+      <span class="c3"><Character who="goblin" mood="happy" size={86} title={null} /></span>
     </div>
-    <h1>Who's Cooked?</h1>
-    <p class="pitch">Find out how cooked your brain is, then prove someone else is worse.</p>
-    <p class="facts">Four rounds. About 90 seconds. No sign-up.</p>
-    <a class="button button--primary start" href="/play">Start game</a>
+
+    <a class="button button--primary play" href="/play/">Play now</a>
+
+    <nav class="modes" aria-label="Modes">
+      <a href="/play/?mode=blitz" style="--accent: var(--heat)">Blitz<span>60s, combos</span></a>
+      <a href="/play/?mode=onelife" style="--accent: var(--danger)">One Life<span>one miss, out</span></a>
+      <a href="/play/?mode=daily" style="--accent: var(--gold)">Daily<span>same run for all</span></a>
+      <a href="/play/?mode=chill" style="--accent: var(--ice)">Chill<span>no lives</span></a>
+    </nav>
   </main>
   <footer>
     <p>Who's Cooked? is a game for fun. It isn't a medical, psychological, or relationship test.</p>
+    <p class="links"><a href="/play/?hub=1">Menu</a> <a href="/privacy/">Privacy</a> <a href="/terms/">Terms</a></p>
   </footer>
 </Base>
 
 <style>
-  .stage {
-    min-height: calc(100dvh - 88px);
-    max-width: 440px;
+  .page {
+    max-width: 480px;
     margin: 0 auto;
-    padding: 48px 20px 24px;
+    padding: 36px 18px 16px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 16px;
+    gap: 14px;
+    min-height: calc(100dvh - 96px);
   }
 
-  .toast {
-    margin-bottom: 8px;
+  .kicker {
+    margin: 0;
+    color: var(--acid);
+    font-weight: 700;
+  }
+
+  h1 {
+    font-size: clamp(56px, 19vw, 96px);
+    line-height: 0.86;
+    letter-spacing: -0.05em;
+    color: var(--paper);
   }
 
   .pitch {
     margin: 0;
     max-width: 30ch;
+    color: var(--muted);
+    font-size: 18px;
   }
 
-  .facts {
-    margin: 0;
+  .crew {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 4px;
+    margin: 6px 0;
+  }
+
+  .c1 {
+    rotate: -8deg;
+  }
+
+  .c3 {
+    rotate: 8deg;
+  }
+
+  .play {
+    font-size: 24px;
+    min-height: 62px;
+  }
+
+  .modes {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .modes a {
+    display: grid;
+    padding: 10px 12px;
+    color: var(--line);
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 20px;
+    background: var(--accent);
+    border: var(--border);
+    border-radius: 10px;
+    box-shadow: var(--shadow-line);
+  }
+
+  .modes a span {
+    font-family: var(--font-body);
     font-weight: 700;
-  }
-
-  /* Primary action in the thumb zone. */
-  .start {
-    margin-top: auto;
+    font-size: 13px;
   }
 
   footer {
-    padding: 16px 20px 24px;
+    padding: 12px 18px 24px;
     text-align: center;
     font-size: var(--text-small);
+    color: var(--muted);
   }
 
   footer p {
@@ -72,20 +120,10 @@ import Base from "../layouts/Base.astro";
     max-width: 40ch;
   }
 
-  @media (min-width: 900px) {
-    .stage {
-      background: var(--butter);
-      border: var(--outline);
-      border-radius: var(--radius-slab);
-      margin-top: 4vh;
-      min-height: 0;
-      height: min(820px, 76vh);
-    }
-
-    footer {
-      position: fixed;
-      inset: auto 0 calc(9vh - 36px);
-      color: var(--white);
-    }
+  .links {
+    margin-top: 8px !important;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
   }
 </style>

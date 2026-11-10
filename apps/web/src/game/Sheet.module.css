@@ -1,0 +1,278 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgb(0 0 0 / 0.6);
+}
+
+/* Bottom sheet on phones: actions stay in the thumb zone. */
+.sheet {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  max-height: 92dvh;
+  overflow-y: auto;
+  padding: 20px 16px max(22px, env(safe-area-inset-bottom));
+  background: var(--bg);
+  border-top: 3px solid var(--acid);
+  border-radius: 18px 18px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+}
+
+.sheet h2 {
+  font-size: var(--text-section);
+  padding-right: 72px;
+}
+
+.sheet h2:focus {
+  outline: none;
+}
+
+.sheet p {
+  margin: 0;
+}
+
+.close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  font: inherit;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--paper);
+  background: var(--panel);
+  border: 2px solid var(--muted);
+  border-radius: var(--radius-pill);
+  padding: 6px 12px;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.small {
+  font-size: var(--text-small);
+  color: var(--muted);
+}
+
+.ok {
+  font-weight: 800;
+  color: var(--acid);
+}
+
+.error {
+  font-weight: 700;
+  padding: 10px 12px;
+  border-left: 5px solid var(--danger);
+  background: var(--panel);
+  border-radius: 8px;
+}
+
+.list {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.product {
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+  background: var(--paper);
+  color: var(--line);
+  border: var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-acid);
+}
+
+.productArt {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.productName {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.productName span {
+  font-size: 20px;
+  color: var(--heat);
+}
+
+.product .ok {
+  color: var(--line);
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+  font-weight: 700;
+}
+
+.field input,
+.field select {
+  font: inherit;
+  font-size: 18px;
+  padding: 12px;
+  min-height: 52px;
+  color: var(--line);
+  background: var(--paper);
+  border: var(--border);
+  border-radius: var(--radius-tight);
+  width: 100%;
+}
+
+.archive {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+  gap: 8px;
+}
+
+.day {
+  font: inherit;
+  font-weight: 800;
+  min-height: 48px;
+  background: var(--panel);
+  color: var(--paper);
+  border: 2px solid var(--muted);
+  border-radius: var(--radius-tight);
+  cursor: pointer;
+}
+
+.crew {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.slot,
+.slotSelected,
+.slotLocked {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 2px;
+  padding: 10px 4px;
+  min-height: 140px;
+  font: inherit;
+  color: var(--line);
+  background: var(--paper);
+  border: var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.slotSelected {
+  background: var(--acid);
+  box-shadow: var(--shadow-heat);
+}
+
+.slotLocked {
+  background: var(--panel);
+  color: var(--muted);
+  border-color: var(--panel2);
+}
+
+.slotLocked svg {
+  opacity: 0.4;
+  filter: grayscale(1);
+}
+
+.slotName {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 15px;
+}
+
+.slotNote {
+  font-size: 12px;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.tab,
+.tabOn {
+  font: inherit;
+  font-weight: 800;
+  min-height: 44px;
+  border-radius: var(--radius-tight);
+  cursor: pointer;
+  color: var(--paper);
+  background: var(--panel);
+  border: 2px solid var(--panel2);
+}
+
+.tabOn {
+  background: var(--paper);
+  color: var(--line);
+  border-color: var(--paper);
+}
+
+.board {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.row,
+.rowYou {
+  display: grid;
+  grid-template-columns: 34px 30px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  background: var(--panel);
+  border-radius: 8px;
+}
+
+.rowYou {
+  background: var(--acid);
+  color: var(--line);
+}
+
+.rank {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-align: center;
+}
+
+.handle {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 700;
+}
+
+.points {
+  font-family: var(--font-display);
+  font-weight: 800;
+}
+
+@media (min-width: 700px) {
+  .backdrop {
+    align-items: center;
+  }
+
+  .sheet {
+    border: 3px solid var(--acid);
+    border-radius: 18px;
+  }
+}

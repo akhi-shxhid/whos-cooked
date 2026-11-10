@@ -1,0 +1,45 @@
+---
+import Base from "./Base.astro";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<Base title={`${title} | Who's Cooked?`} description={description}>
+  <main class="doc">
+    <a class="back" href="/">Back to the game</a>
+    <h1>{title}</h1>
+    <slot />
+  </main>
+</Base>
+
+<style>
+  .doc {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 32px 20px 64px;
+  }
+
+  .doc :global(h2) {
+    margin-top: 28px;
+  }
+
+  .doc :global(p),
+  .doc :global(li) {
+    max-width: 62ch;
+  }
+
+  .doc :global(a) {
+    color: var(--ice);
+  }
+
+  .back {
+    display: inline-block;
+    margin-bottom: 16px;
+    font-weight: 700;
+  }
+</style>
