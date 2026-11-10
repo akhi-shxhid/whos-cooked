@@ -47,7 +47,7 @@ pnpm --filter @whoscooked/web deploy
 ## Database migrations
 
 Migrations are generated with `pnpm --filter @whoscooked/db db:generate` and applied to Neon `main` by CI when the
-`DATABASE_URL` secret is set (owner role, direct URL). Migrations so far: `0000_commerce` (purchases) and `0001_leaderboard` (handles, daily boards). The `dev` branch is migrated; **`main` needs both** before purchases or leaderboards work in production.
+`DATABASE_URL` secret is set (owner role, direct URL). Migrations so far: `0000_commerce` (purchases) and `0001_leaderboard` (handles, daily boards). Both `dev` and `main` are migrated (`main` on 2026-11-10, by hand with the owner role).
 
 ## Turning on real payments (owner)
 
