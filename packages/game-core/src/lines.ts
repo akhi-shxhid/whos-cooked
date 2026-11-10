@@ -1,69 +1,66 @@
 import { streamFor } from "./rng.ts";
-import type { ToastLevel } from "./scoring.ts";
+import type { RushLevel } from "./rush.ts";
 
 /**
- * Solo result lines, 8 per level (PRD section 7 asks for at least 40).
- * They tease the score, never the person: no jokes about appearance, identity,
- * intelligence as a fixed trait, disability, or mental health.
- *
- * TODO(M1-owner): owner reviews and edits every line before launch.
+ * Game-over lines, 8 per rank. Roast the run, never the person: no jokes about
+ * appearance, identity, intelligence as a fixed trait, disability, or mental health.
+ * TODO(owner): review and edit every line before launch.
  * TODO(M6): move to i18n messages once fluent speakers translate them.
- * Duo roles, winner lines, and tie lines arrive with challenges in M2.
  */
-export const SOLO_LINES: Record<ToastLevel, readonly string[]> = {
-  Raw: [
-    "Barely warm. Is the toaster even on?",
-    "Still basically bread. Respect.",
-    "The toaster didn't get a chance.",
-    "Raw, sharp, and slightly annoying about it.",
-    "Fresh out of the bag.",
-    "The crumbs fear you.",
-    "Untoasted and unbothered.",
-    "Someone check the toaster is plugged in.",
+export const SOLO_LINES: Record<RushLevel, readonly string[]> = {
+  "Locked In": [
+    "Locked in. Who even are you?",
+    "Built different. Statistically.",
+    "Zero cooking detected.",
+    "Your focus has a skincare routine.",
+    "Main character run, confirmed.",
+    "The toaster is scared of you.",
+    "Certified locked in. Screenshot this.",
+    "Not cooked. Not even warm.",
   ],
-  Golden: [
-    "Golden. Frame this one.",
-    "Perfect toast. Suspiciously perfect.",
-    "Crunchy outside, sharp inside.",
-    "This is the slice from the ad.",
-    "Golden. Don't let it go to your head.",
-    "Butter would melt on you nicely.",
-    "Lightly toasted, heavily smug.",
-    "Peak toast. It's all downhill from here.",
+  Goated: [
+    "Goated, with light seasoning.",
+    "Lowkey cracked.",
+    "Respectfully, that was clean.",
+    "Almost locked in. Almost.",
+    "Your thumbs ate.",
+    "Slight sizzle. Still goated.",
+    "That run had aura.",
+    "Clean. Suspiciously clean.",
   ],
-  Crispy: [
-    "Crispy. Holding it together. Mostly.",
-    "A little toasty around the edges.",
-    "Still edible. Consider this a warning.",
-    "Crispy. The smoke alarm is watching.",
-    "Some crunch. Some chaos.",
-    "Not burnt. Not great. Very toast.",
-    "Middle of the dial. Bold choice.",
-    "Holding on like the last crumb in the bag.",
+  Mid: [
+    "Mid. Painfully mid.",
+    "Not cooked, not locked in. Just vibing.",
+    "It's giving okay.",
+    "Room temperature performance.",
+    "Mid run, main character dreams.",
+    "You were there. Technically.",
+    "Mid, but make it confident.",
+    "A solid eh.",
   ],
-  Burnt: [
-    "Still warm. Still bad.",
-    "Burnt. Scrape it and pretend.",
-    "Someone left you in too long.",
-    "The smoke alarm has entered the chat.",
-    "Burnt, but in a charming way.",
-    "That's not toast. That's a cry for butter.",
-    "Crunch level: dangerous.",
-    "The bread is filing a complaint.",
+  Cooked: [
+    "You're cooked, chief.",
+    "The group chat will hear about this.",
+    "Medium-well. Mostly well.",
+    "That was a lot of red flags.",
+    "Your thumbs filed a complaint.",
+    "Cooked, but redeemable.",
+    "Respectfully: what was that.",
+    "Run it back. Immediately.",
   ],
-  Charcoal: [
-    "Charcoal. Send help. And butter.",
-    "Fully cooked. Possibly a fire hazard.",
-    "This toast has left the building.",
-    "Charcoal. You could draw with this.",
-    "The toaster wants a word.",
-    "Burnt to a crisp. Rematch immediately.",
-    "Smoke detected. Excuses loading.",
-    "Extra crispy. All of the crispy.",
+  "Fully Cooked": [
+    "Fully cooked. Well done. Not a compliment.",
+    "Charcoal arc unlocked.",
+    "The smoke alarm is your hype man.",
+    "That run was a jump scare.",
+    "Speedran getting cooked.",
+    "Burnt to the timeline.",
+    "A moment of silence, please.",
+    "Delete this run. We won't tell.",
   ],
 };
 
-/** Same seed and level always give the same line, so a shared result reads the same. */
-export function soloLineFor(level: ToastLevel, seed: string): string {
+/** Same seed and rank always give the same line, so a shared result reads the same. */
+export function soloLineFor(level: RushLevel, seed: string): string {
   return streamFor(seed, `line:${level}`).pick(SOLO_LINES[level]);
 }
