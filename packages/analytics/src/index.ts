@@ -15,7 +15,7 @@ export type AnalyticsEvent =
   | "report_preview_viewed" | "checkout_started" | "purchase_completed" | "purchase_failed"
   | "subscription_started" | "subscription_canceled" | "daily_started" | "daily_completed"
   | "streak_extended" | "room_created" | "room_joined" | "focus_day_completed"
-  | "push_opted_in" | "email_opted_in";
+  | "push_opted_in" | "email_opted_in" | "leaderboard_posted" | "mission_completed" | "level_up";
 
 export interface EventProperties {
   source?: string;

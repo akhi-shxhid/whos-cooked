@@ -4,15 +4,16 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node --env-file-if-exists=.env.local-db node_modules/wrangler/bin/wrangler.js dev",
+    "dev": "node --env-file-if-exists=.env.local-db node_modules/wrangler/bin/wrangler.js dev --var ENVIRONMENT:development --var PAYMENTS_PROVIDER:fake --var COOKIE_SECRET:local-dev-cookie-secret --var FAKE_WEBHOOK_SECRET:whsec_bG9jYWwtZGV2LXdlYmhvb2stc2VjcmV0 --var PUBLIC_BASE_URL:http://localhost:4321",
     "build": "wrangler deploy --dry-run --outdir dist",
     "deploy": "wrangler deploy",
-    "types": "wrangler types",
-    "typecheck": "wrangler types --check && tsc --noEmit -p ."
+    "types": "wrangler types --strict-vars=false",
+    "typecheck": "wrangler types --strict-vars=false --check && tsc --noEmit -p ."
   },
   "dependencies": {
     "@sentry/cloudflare": "^11.10.0",
     "@whoscooked/db": "workspace:*",
+    "@whoscooked/payments": "workspace:*",
     "better-auth": "^1.7.17",
     "hono": "^4.13.16",
     "resend": "^6.37.0",

@@ -1,3 +1,7 @@
-// PaymentProvider interface and the Dodo Payments implementation.
-// TODO(M3): verify current Dodo docs (PRD section 20), then build the adapter.
-export {};
+// Payment provider interface, Dodo implementation, local fake, and the price config.
+export * from "./products.ts";
+export * from "./provider.ts";
+export * from "./standardWebhooks.ts";
+export { DodoProvider } from "./dodo.ts";
+export type { DodoConfig } from "./dodo.ts";
+export { FakeProvider } from "./fake.ts";

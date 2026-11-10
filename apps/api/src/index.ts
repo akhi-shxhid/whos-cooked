@@ -1,6 +1,8 @@
 import { Hono } from "hono";
 import { connect, pingDatabase } from "@whoscooked/db";
+import { commerce } from "./commerce.ts";
 import { apiError } from "./errors.ts";
+import { leaderboard, pruneOld } from "./leaderboard.ts";
 
 export type AppEnv = { Bindings: Env };
 
@@ -26,6 +28,9 @@ app.get("/health/db", async (c) => {
   }
 });
 
+app.route("/", commerce);
+app.route("/", leaderboard);
+
 app.notFound((c) => apiError(c, 404, "not_found", "No API route matches this path. Check the URL and try again."));
 
 app.onError((err, c) => {
@@ -33,4 +38,10 @@ app.onError((err, c) => {
   return apiError(c, 500, "internal_error", "The server hit an error. Try again in a moment.");
 });
 
-export default app;
+export default {
+  fetch: app.fetch,
+  /** Daily cron: enforce the 30-day leaderboard retention promised in /privacy. */
+  async scheduled(_event: ScheduledController, env: Env, ctx: ExecutionContext) {
+    ctx.waitUntil(pruneOld(env));
+  },
+} satisfies ExportedHandler<Env>;

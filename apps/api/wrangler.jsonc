@@ -5,6 +5,15 @@
   "compatibility_date": "2026-11-01",
   "compatibility_flags": ["nodejs_compat"],
   "observability": { "enabled": true },
+  "triggers": { "crons": ["17 3 * * *"] },
+  // Non-secret settings. Secrets (COOKIE_SECRET, DODO_API_KEY, DODO_WEBHOOK_SECRET,
+  // DODO_PRODUCT_PLUS) are set with `wrangler secret put`. See docs/deploy.md.
+  "vars": {
+    "ENVIRONMENT": "production",
+    "PAYMENTS_PROVIDER": "dodo",
+    "DODO_MODE": "test",
+    "PUBLIC_BASE_URL": "https://whoscooked-web.whoscooked-api.workers.dev"
+  },
   "hyperdrive": [
     {
       "binding": "HYPERDRIVE",
