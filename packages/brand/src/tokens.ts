@@ -1,6 +1,36 @@
 /**
- * Brand color tokens (PRD section 11). Do not add colors without a reason
- * recorded in docs/design-notes.md.
+ * Brand tokens, v2 (docs/decision.md, "Decision 2"): dark, loud, internet-native.
+ * Contrast is checked in contrast.test.ts. Record a reason in docs/design-notes.md
+ * before adding a color.
+ */
+export const palette = {
+  /** Page background. */
+  bg: "#0F0F12",
+  /** Raised panels on the background. */
+  panel: "#1A1A20",
+  panel2: "#24242C",
+  /** Light surface: the game stage and sticker cards. Also main text on dark. */
+  paper: "#F4EFE6",
+  /** Outlines and text on light or bright surfaces. */
+  line: "#111114",
+  /** Secondary text on dark. */
+  muted: "#A9A6B3",
+  /** Brand heat: "cooked". */
+  heat: "#FF5A1F",
+  /** Primary action: "locked in". */
+  acid: "#C6FF3D",
+  ice: "#6BE4FF",
+  /** Mistakes and destructive actions. */
+  danger: "#FF3366",
+  gold: "#FFD23F",
+  bubble: "#FF9EC4",
+} as const;
+
+export type PaletteToken = keyof typeof palette;
+
+/**
+ * Bread colors for the toast doneness ramp and the classic ToastMascot.
+ * Used only for toast art, never for UI.
  */
 export const colors = {
   butter: "#FFCF3F",
@@ -14,37 +44,24 @@ export const colors = {
 export type ColorToken = keyof typeof colors;
 
 export const fonts = {
-  display: '"Bagel Fat One", system-ui, sans-serif',
+  display: '"Bricolage Grotesque", system-ui, sans-serif',
   body: '"Atkinson Hyperlegible", system-ui, sans-serif',
 } as const;
 
-/** Mobile type scale in px (PRD section 11). */
-export const typeScale = {
-  score: { min: 96, max: 128 },
-  pageHeading: { min: 40, max: 56 },
-  sectionHeading: { min: 28, max: 32 },
-  body: { min: 17, max: 18 },
-  small: { min: 14, max: 14 },
-} as const;
-
-/**
- * Approved foreground/background pairs and the WCAG level each one meets.
- * `text` = 4.5:1 (any text), `large` = 3:1 (large text and UI shapes only).
- * Verified in contrast.test.ts.
- */
+/** Approved text/background pairs and the WCAG level each meets (all are full AA text). */
 export const approvedPairs = [
-  { fg: "burnt", bg: "butter", level: "text" },
-  { fg: "burnt", bg: "white", level: "text" },
-  { fg: "white", bg: "plate", level: "text" },
-  { fg: "white", bg: "burnt", level: "text" },
-  { fg: "plate", bg: "butter", level: "large" },
-  { fg: "burnt", bg: "jam", level: "large" },
-  { fg: "jam", bg: "burnt", level: "large" },
-  { fg: "white", bg: "jam", level: "large" },
-  { fg: "burnt", bg: "crust", level: "large" },
-  { fg: "white", bg: "crust", level: "large" },
-] as const satisfies ReadonlyArray<{
-  fg: ColorToken;
-  bg: ColorToken;
-  level: "text" | "large";
-}>;
+  { fg: "paper", bg: "bg", level: "text" },
+  { fg: "muted", bg: "bg", level: "text" },
+  { fg: "heat", bg: "bg", level: "text" },
+  { fg: "acid", bg: "bg", level: "text" },
+  { fg: "ice", bg: "bg", level: "text" },
+  { fg: "danger", bg: "bg", level: "text" },
+  { fg: "paper", bg: "panel", level: "text" },
+  { fg: "muted", bg: "panel", level: "text" },
+  { fg: "line", bg: "paper", level: "text" },
+  { fg: "line", bg: "acid", level: "text" },
+  { fg: "line", bg: "heat", level: "text" },
+  { fg: "line", bg: "ice", level: "text" },
+  { fg: "line", bg: "danger", level: "text" },
+  { fg: "line", bg: "gold", level: "text" },
+] as const satisfies ReadonlyArray<{ fg: PaletteToken; bg: PaletteToken; level: "text" | "large" }>;

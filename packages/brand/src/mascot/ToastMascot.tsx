@@ -1,9 +1,12 @@
 import { useId } from "react";
-import { contrastRatio } from "../color.ts";
+import { contrastRatio, mix } from "../color.ts";
 import { crumbColor, crustColor } from "../doneness.ts";
 import { colors } from "../tokens.ts";
 
 export type ToastMood = "neutral" | "happy" | "focused" | "shocked" | "smug" | "panic";
+
+/** Toast Locker spreads. Colors come only from brand tokens. */
+export type ToastSpread = "plain" | "butter" | "jam" | "honey" | "cocoa" | "sprinkles";
 
 export interface ToastMascotProps {
   /** 0 = raw bread, 100 = charcoal. Usually the Cooked Score. */
@@ -18,6 +21,8 @@ export interface ToastMascotProps {
   sweat?: number;
   /** 0 to 1. Defaults to rising from doneness 75 upward. */
   smoke?: number;
+  /** Cosmetic spread across the top of the slice. */
+  spread?: ToastSpread;
   /** Rendered size in px. The SVG keeps its own aspect ratio. */
   size?: number;
   /** Accessible name. Pass `null` when the toast is purely decorative. */
@@ -47,6 +52,7 @@ export function ToastMascot({
   lookY = 0,
   sweat,
   smoke,
+  spread = "plain",
   size = 200,
   title = "Toast mascot",
   className,
@@ -106,6 +112,7 @@ export function ToastMascot({
           transform={`translate(100 130) scale(0.84 0.86) translate(-100 -130)`}
         />
 
+        <Spread spread={spread} />
         <Brows mood={mood} ink={ink} />
 
         {[72, 128].map((cx) => (
@@ -193,4 +200,38 @@ function Mouth({ mood, ink }: { mood: ToastMood; ink: string }) {
     default:
       return <path d="M86 164 Q100 172 114 164" {...line} />;
   }
+}
+
+// Spread blob across the top of the crumb, clear of the brows and eyes.
+const SPREAD_PATH =
+  "M48 72 C52 52 80 46 100 56 C120 44 150 50 154 72 C157 84 146 86 142 92 C137 99 128 90 120 95 " +
+  "C110 101 104 90 94 95 C84 100 76 92 68 94 C58 96 46 86 48 72 Z";
+
+function Spread({ spread }: { spread: ToastSpread }) {
+  if (spread === "plain") return null;
+  const fills: Record<Exclude<ToastSpread, "plain">, string> = {
+    butter: colors.butter,
+    jam: colors.jam,
+    honey: mix(colors.crust, colors.butter, 0.45),
+    cocoa: mix(colors.burnt, colors.crust, 0.35),
+    sprinkles: colors.white,
+  };
+  return (
+    <g>
+      <path d={SPREAD_PATH} fill={fills[spread]} stroke={colors.burnt} strokeWidth={3} strokeLinejoin="round" />
+      {spread !== "cocoa" && <path d="M66 64 C74 58 84 58 90 62" fill="none" stroke={colors.white} strokeWidth={4} strokeLinecap="round" opacity={0.7} />}
+      {spread === "sprinkles" &&
+        [
+          [70, 72, colors.jam, 20],
+          [92, 66, colors.plate, -30],
+          [112, 74, colors.butter, 10],
+          [132, 66, colors.jam, 40],
+          [82, 84, colors.butter, -10],
+          [124, 84, colors.plate, 25],
+          [104, 82, colors.crust, -40],
+        ].map(([x, y, c, r]) => (
+          <rect key={`${x}-${y}`} x={Number(x) - 5} y={Number(y) - 2} width={10} height={4} rx={2} fill={String(c)} transform={`rotate(${r} ${x} ${y})`} />
+        ))}
+    </g>
+  );
 }

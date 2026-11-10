@@ -1,30 +1,38 @@
-/* Brand tokens (PRD section 11). Keep in sync with tokens.ts. */
+/* Brand tokens v2. Keep in sync with tokens.ts. */
 :root {
-  --butter: #ffcf3f;
-  --burnt: #2e1a12;
-  --crust: #b8662a;
-  --plate: #2346ff;
-  --jam: #f0383e;
-  --white: #ffffff;
+  color-scheme: dark;
+  --bg: #0f0f12;
+  --panel: #1a1a20;
+  --panel2: #24242c;
+  --paper: #f4efe6;
+  --line: #111114;
+  --muted: #a9a6b3;
+  --heat: #ff5a1f;
+  --acid: #c6ff3d;
+  --ice: #6be4ff;
+  --danger: #ff3366;
+  --gold: #ffd23f;
+  --bubble: #ff9ec4;
 
-  --font-display: "Bagel Fat One", system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
   --font-body: "Atkinson Hyperlegible", system-ui, sans-serif;
 
-  /* Mobile type scale, growing to the upper bound on wider screens. */
-  --text-score: clamp(96px, 30vw, 128px);
-  --text-page: clamp(40px, 12vw, 56px);
-  --text-section: clamp(28px, 8vw, 32px);
-  --text-body: clamp(17px, 4.6vw, 18px);
+  --text-score: clamp(88px, 28vw, 128px);
+  --text-page: clamp(38px, 11vw, 56px);
+  --text-section: clamp(24px, 7vw, 30px);
+  --text-body: clamp(16px, 4.4vw, 18px);
   --text-small: 14px;
 
-  /* Deliberately varied radii: slabs, pills, and sharp scoreboard edges. */
-  --radius-slab: 28px;
+  /* Sticker look: hard edges and offset shadows, deliberately varied radii. */
+  --radius-card: 16px;
   --radius-pill: 999px;
   --radius-tight: 6px;
-
-  --outline: 4px solid var(--burnt);
-  --focus-ring: 0 0 0 4px var(--white), 0 0 0 8px var(--plate);
+  --border: 3px solid var(--line);
+  --shadow-heat: 4px 4px 0 var(--heat);
+  --shadow-acid: 4px 4px 0 var(--acid);
+  --shadow-line: 4px 4px 0 var(--line);
+  --focus-ring: 0 0 0 3px var(--bg), 0 0 0 6px var(--ice);
 
   --ease-snap: cubic-bezier(0.2, 0.9, 0.3, 1.2);
-  --duration-ui: 160ms;
+  --duration-ui: 140ms;
 }

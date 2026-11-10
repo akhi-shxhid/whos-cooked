@@ -1,9 +1,9 @@
 /*
- * Self-hosted fonts via Fontsource (bundled into the site, no third-party
- * requests). Fontsource declares font-display: swap and ships latin and
- * latin-ext subsets, which cover English, German, French, and Spanish.
+ * Self-hosted fonts via Fontsource (bundled, no third-party requests). Fontsource
+ * declares font-display: swap and ships latin + latin-ext (EN, DE, FR, ES).
+ * Display: Bricolage Grotesque (chunky grotesque). Body: Atkinson Hyperlegible (legibility).
  */
-@import "@fontsource/bagel-fat-one/400.css";
+@import "@fontsource/bricolage-grotesque/700.css";
+@import "@fontsource/bricolage-grotesque/800.css";
 @import "@fontsource/atkinson-hyperlegible/400.css";
 @import "@fontsource/atkinson-hyperlegible/700.css";
-@import "@fontsource/atkinson-hyperlegible/400-italic.css";

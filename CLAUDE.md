@@ -41,23 +41,34 @@ The full product spec is in [PRD.md](PRD.md). Read it before starting a new mile
 
 ## 11. Design system
 
+> **Updated 2026-11-10 by owner decision** (docs/decision.md, "Decision 2"): the kids-looking butter theme was replaced.
+> These tokens are the source of truth; `packages/brand/src/tokens.ts` must match.
+
 ### Direction
-A loud kitchen-counter game show. Think toaster dials, scoreboard numbers, butter-yellow screens, and one very dramatic slice of toast.
+Loud, internet-native, made for Gen Z: near-black screens, sticker cards with hard offset shadows, chunky grotesque
+type, roast-style copy, and the Cooked Crew (original slang-archetype characters) carrying the attitude.
+"Cooked" (doomed) vs "Locked In" (focused) is the core joke.
 
 ### Colors
 | Token | Hex | Use |
 |---|---|---|
-| `butter` | `#FFCF3F` | Main background |
-| `burnt` | `#2E1A12` | Main text and outlines |
-| `crust` | `#B8662A` | Toast and warm details |
-| `plate` | `#2346FF` | Primary actions and focus states |
-| `jam` | `#F0383E` | Mistakes and destructive actions |
-| `white` | `#FFFFFF` | Surfaces and text on plate |
+| `bg` | `#0F0F12` | Page background |
+| `panel` / `panel2` | `#1A1A20` / `#24242C` | Raised panels |
+| `paper` | `#F4EFE6` | Main text on dark; the game stage and sticker cards |
+| `line` | `#111114` | Outlines and text on light or bright surfaces |
+| `muted` | `#A9A6B3` | Secondary text on dark |
+| `acid` | `#C6FF3D` | Primary actions, "locked in", scores |
+| `heat` | `#FF5A1F` | Brand heat, "cooked", offset shadows |
+| `ice` | `#6BE4FF` | Info, focus rings |
+| `danger` | `#FF3366` | Mistakes and destructive actions |
+| `gold` / `bubble` | `#FFD23F` / `#FF9EC4` | Mode accents and characters |
+
+Bread colors (butter, burnt, crust) remain only for toast art (BURNT ONE! slices, Toasty).
 
 Check contrast before use. Do not add new colors without a reason recorded in the design notes.
 
 ### Typography
-- Display and scores: `Bagel Fat One`
+- Display and scores: `Bricolage Grotesque` (700/800)
 - Interface and body: `Atkinson Hyperlegible`
 - Use only these two typefaces.
 - Self-host fonts.

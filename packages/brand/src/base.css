@@ -14,8 +14,8 @@ html {
 body {
   margin: 0;
   min-height: 100dvh;
-  background: var(--butter);
-  color: var(--burnt);
+  background: var(--bg);
+  color: var(--paper);
   font-family: var(--font-body);
   font-size: var(--text-body);
   line-height: 1.45;
@@ -24,9 +24,11 @@ body {
 
 h1,
 h2,
+h3,
 .display {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 800;
+  letter-spacing: -0.02em;
   line-height: 1.02;
   margin: 0;
 }
@@ -39,19 +41,13 @@ h2 {
   font-size: var(--text-section);
 }
 
+a {
+  color: var(--ice);
+}
+
 :focus-visible {
   outline: none;
   box-shadow: var(--focus-ring);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
 }
 
 .sr-only {
@@ -71,60 +67,74 @@ h2 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 56px;
-  padding: 14px 24px;
+  gap: 8px;
+  min-height: 54px;
+  padding: 12px 20px;
   font: inherit;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-weight: 800;
   font-size: 19px;
+  letter-spacing: -0.01em;
   text-decoration: none;
   cursor: pointer;
-  border-radius: var(--radius-pill);
-  transition: transform var(--duration-ui) var(--ease-snap);
-}
-
-.button:active {
-  transform: scale(0.97);
+  border-radius: var(--radius-tight);
+  transition: transform var(--duration-ui) var(--ease-snap), box-shadow var(--duration-ui);
 }
 
 .button:disabled {
-  opacity: 0.6;
+  opacity: 0.55;
   cursor: progress;
 }
 
 .button--primary {
   width: 100%;
-  background: var(--plate);
-  color: var(--white);
-  border: 0;
-  box-shadow: 0 6px 0 var(--burnt);
+  background: var(--acid);
+  color: var(--line);
+  border: var(--border);
+  box-shadow: var(--shadow-heat);
 }
 
 .button--primary:active {
-  box-shadow: 0 2px 0 var(--burnt);
-  transform: translateY(4px);
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 var(--heat);
 }
 
 .button--secondary {
-  background: transparent;
-  color: var(--burnt);
-  border: 3px solid var(--burnt);
+  background: var(--panel);
+  color: var(--paper);
+  border: 2px solid var(--muted);
+}
+
+.button--secondary:active {
+  transform: scale(0.97);
 }
 
 .button--quiet {
   background: transparent;
-  color: var(--burnt);
+  color: var(--paper);
   border: 0;
   text-decoration: underline;
   text-underline-offset: 4px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 17px;
 }
 
-/* Desktop scenery: a portrait stage standing on a counter-top slab. */
-@media (min-width: 900px) {
-  body.scenery {
-    background:
-      linear-gradient(var(--burnt), var(--burnt)) bottom 18vh left 0 / 100% 8px no-repeat,
-      linear-gradient(var(--crust), var(--crust)) bottom / 100% 18vh no-repeat,
-      var(--butter);
-    background-attachment: fixed;
+/* Sticker card: light surface, hard border, offset shadow. */
+.sticker {
+  background: var(--paper);
+  color: var(--line);
+  border: var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-line);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
