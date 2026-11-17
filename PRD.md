@@ -4,11 +4,11 @@ Version: 1.0
 Date: 2026-11-05
 Status: Approved for build
 Owner: Founder
-Builder: Claude Code
+Builder: Shahid Afrid
 
 ---
 
-## 0. Instructions for Claude Code
+## 0. Build instructions
 
 1. Read this whole document before writing code.
 2. Copy sections 11, 12, 13, and 14 into `CLAUDE.md` so they apply to every task.

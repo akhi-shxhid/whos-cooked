@@ -11,7 +11,7 @@
 | Cloudflare account | `fb5ace7dd8ddd156496753688fbe5688` |
 | Hyperdrive config | `whoscooked-db` (`3d8c73a855f74c7bb0e81d9a9088a499`) → Neon `main`, role `hyperdrive`, direct URL |
 | API Worker | `whoscooked-api` → https://whoscooked-api.whoscooked-api.workers.dev |
-| Web Worker | `whoscooked-web` → https://whoscooked-web.whoscooked-api.workers.dev |
+| Web Worker | `whoscooked` → https://whoscooked.whoscooked-api.workers.dev |
 
 Health checks: `/api/v1/health` and `/api/v1/health/db` on the API Worker.
 
@@ -34,7 +34,7 @@ exists when `ENVIRONMENT=development`.
 
 ## Routing
 
-`whoscooked-web` serves the static site and forwards `/api/*` to `whoscooked-api` over a service binding
+`whoscooked` serves the static site and forwards `/api/*` to `whoscooked-api` over a service binding
 (`apps/web/worker/index.ts`). Same origin keeps the purchase cookie first-party inside in-app browsers.
 
 ## Deploying by hand
@@ -79,7 +79,7 @@ Until step 4 is done, checkout shows: "Checkout isn't open yet. Everything in th
 1. GitHub secrets: move `CLOUDFLARE_API_TOKEN` (rolled) to **Repository secrets**, and add `DATABASE_URL`
    (Neon `main`, `whoscooked_owner` role, direct URL) so CI can run migrations.
 2. Optional: rename the workers.dev subdomain (currently `whoscooked-api`) in Workers → Settings.
-3. When the domain is on Cloudflare, add it as a custom domain on `whoscooked-web` and update `PUBLIC_BASE_URL`.
+3. When the domain is on Cloudflare, add it as a custom domain on `whoscooked` and update `PUBLIC_BASE_URL`.
 4. Neon free plan scales compute to zero, which adds cold-start latency on the first purchase check. Consider a paid plan for launch.
 5. Set Neon and Cloudflare spend and usage alerts.
 6. Create the support@ and privacy@ mailboxes the Privacy and Terms pages point to, and get both pages legally reviewed.

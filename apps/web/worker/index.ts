@@ -1,5 +1,5 @@
 /**
- * Front door for whoscooked-web: static assets, plus same-origin /api/* routed
+ * Front door for whoscooked: static assets, plus same-origin /api/* routed
  * to the API Worker over a service binding. Same origin keeps the purchase
  * cookie first-party, which in-app browsers (TikTok, Instagram) require.
  */

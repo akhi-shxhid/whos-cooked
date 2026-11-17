@@ -29,7 +29,7 @@ export function routeFromUrl(search: string, today = dailyKey()): Route {
   const q = new URLSearchParams(search);
   if (q.get("plus") === "return") return { kind: "plusReturn" };
   if (q.get("hub")) return { kind: "hub" };
-  if (q.get("daily") || q.get("mode") === "daily") return { kind: "play", launch: launchFor("daily") };
+  if (q.get("daily") || q.get("mode") === "daily") return { kind: "play", launch: { mode: "daily", seed: dailySeed(today), day: today } };
   const day = q.get("day");
   if (day && /^\d{4}-\d{2}-\d{2}$/.test(day) && day < today) {
     return { kind: "play", launch: { mode: "daily", seed: dailySeed(day), day, archive: true } };

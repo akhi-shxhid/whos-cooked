@@ -12,7 +12,7 @@
     "ENVIRONMENT": "production",
     "PAYMENTS_PROVIDER": "dodo",
     "DODO_MODE": "test",
-    "PUBLIC_BASE_URL": "https://whoscooked-web.whoscooked-api.workers.dev"
+    "PUBLIC_BASE_URL": "https://whoscooked.whoscooked-api.workers.dev"
   },
   "hyperdrive": [
     {
