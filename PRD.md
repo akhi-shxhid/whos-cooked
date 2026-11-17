@@ -8,21 +8,6 @@ Builder: Shahid Afrid
 
 ---
 
-## 0. Build instructions
-
-1. Read this whole document before writing code.
-2. Copy sections 11, 12, 13, and 14 into `CLAUDE.md` so they apply to every task.
-3. Build in the order given in section 27.
-4. Finish each milestone's acceptance checks before starting the next one.
-5. Do not change the brand, name, colors, fonts, scoring model, or prices without asking the owner.
-6. Do not add a dependency if the platform or an existing dependency already does the job.
-7. Do not invent user counts, testimonials, percentiles, press logos, or scientific claims.
-8. If a vendor's API or limit differs from this document, check the current docs, follow them, and report the difference.
-9. Build real features, not placeholders. Any temporary stub must have a TODO and appear in the milestone report.
-10. At the end of each milestone, report what shipped, what was tested, and what still needs the owner.
-
----
-
 ## 1. Product summary
 
 Who's Cooked? is a 90-second mobile-first web game. A player completes four quick rounds and gets a Cooked Score from 0 to 100. A slice of toast browns as the score rises. The player then sends a challenge link to someone else, who plays the same rounds. Both see who won, how in sync they are, and a funny role for each person.
